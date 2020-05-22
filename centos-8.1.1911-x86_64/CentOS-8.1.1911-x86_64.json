@@ -1,0 +1,66 @@
+{
+    "description" : "Build a CentOS 8.1 VM",
+    "variables" : {
+        "proxmox_host" : "",
+        "proxmox_api_user" : "",
+        "proxmox_api_password" : ""
+    },
+    "builders" : [
+        {
+            "type" : "proxmox",
+            "proxmox_url" : "https://{{ user `proxmox_host` }}:8006/api2/json",
+            "insecure_skip_tls_verify" : true,
+            "username" : "{{ user `proxmox_api_user` }}",
+            "password" : "{{ user `proxmox_api_password` }}",
+            "node" : "proxmox",
+            "iso_storage_pool" : "local",
+            "iso_url" : "http://www.gtlib.gatech.edu/pub/centos/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-boot.iso",
+            "iso_checksum" : "7fea13202bf2f26989df4175aace8fdc16e1137f7961c33512cbfad844008948",
+            "iso_checksum_type" : "sha256",
+            "pool" : "templates",
+            "vm_name" : "centos-8.1-template",
+            "template_name" : "centos-8.1-template",
+            "template_description" : "CentOS 8.1.1911 x86_64",
+            "os" : "l26",
+            "cpu_type" : "kvm64",
+            "sockets" : 1,
+            "cores" : 2,
+            "memory" : 2048,
+            "vga" : {
+                "type" : "std",
+                "memory" : 512
+            },
+            "network_adapters" : [
+                {
+                    "bridge" : "vmbr0",
+                    "model" : "e1000"
+                }
+            ],
+            "scsi_controller" : "virtio-scsi-pci",
+            "disks" : [
+                {
+                    "storage_pool" : "local-zfs",
+                    "storage_pool_type" : "zfspool",
+                    "type" : "scsi",
+                    "disk_size" : "10G",
+                    "cache_mode" : "none",
+                    "format" : "raw"
+                }
+            ],
+            "unmount_iso" : true,
+            "qemu_agent" : true,
+            "http_directory" : "kickstart",
+            "boot_wait" : "10s",
+            "boot_command" : [
+              "<esc>",
+              "<wait>",
+              "linux ip=dhcp inst.sshd inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg",
+              "<enter>"
+            ],
+            "communicator" : "ssh",
+            "ssh_username" : "centos",
+            "ssh_password" : "packer",
+            "ssh_timeout"  : "15m"
+        }
+    ]
+}
