@@ -11,8 +11,10 @@ __Status__: locked
 
 __User__: debian
 __Password__: packer
-__Groups__: wheel
+__Groups__: 
 __Status__: unlocked
 
 ## Package Information
 Minimal install
+qemu-guest-agent
+cloud-init

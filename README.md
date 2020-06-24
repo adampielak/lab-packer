@@ -9,6 +9,13 @@ My current home lab currently runs on __ProxmoxVE 6.2-4__.
 * CentOS 8
     * [CentOS 8.1.1911](./centos-8.1.1911-x86_64)
         * Builders: Proxmox
+    * [CentOS 8.1.1911 with cloud-init](./centos-8.1.1911-x86_64_cloud-init)
+        * Builders: Proxmox
+* Debian 10
+    * [Debian 10.4.0](./debian-10.4.0-amd64)
+        * Builders: Proxmox
+    * [Debian 10.4.0 with cloud-init](./debian-10.4.0-amd64_cloud-init)
+        * Builders: Proxmox
 
 ## Using Packer with ProxmoxVE
 The Packer ProxmoxVE builder creates a template VM on the ProxmoxVE Datacenter.

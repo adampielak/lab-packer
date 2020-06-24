@@ -16,3 +16,5 @@ __Status__: unlocked
 
 ## Package Information
 Minimal install
+qemu-guest-agent
+cloud-init
