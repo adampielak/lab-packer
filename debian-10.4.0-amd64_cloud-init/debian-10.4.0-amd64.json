@@ -1,5 +1,5 @@
 {
-    "description" : "Build a Debian 10 VM",
+    "description" : "Build a Debian 10 VM with cloud-init",
     "variables" : {
         "proxmox_host" : "",
         "proxmox_api_user" : "",
@@ -16,11 +16,10 @@
             "iso_storage_pool" : "local",
             "iso_url" : "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.4.0-amd64-netinst.iso",
             "iso_checksum" : "ab3763d553330e90869487a6843c88f1d4aa199333ff16b653e60e59ac1fc60b",
-            "iso_checksum_type" : "sha256",
             "pool" : "templates",
-            "vm_name" : "debian-10-template",
-            "template_name" : "debian-10-template",
-            "template_description" : "Debian 10.4.0 amd64",
+            "vm_name" : "debian-10-template-cloud-init",
+            "template_name" : "debian-10-template-cloud-init",
+            "template_description" : "Debian 10.4.0 amd64 with cloud-init",
             "os" : "l26",
             "cpu_type" : "kvm64",
             "sockets" : 1,
@@ -54,11 +53,11 @@
             "boot_command" : [
               "<esc>",
               "<wait>",
-              "linux ip=dhcp inst.sshd inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg",
+              "auto url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg language=en",
               "<enter>"
             ],
             "communicator" : "ssh",
-            "ssh_username" : "centos",
+            "ssh_username" : "debian",
             "ssh_password" : "packer",
             "ssh_timeout"  : "15m"
         }
